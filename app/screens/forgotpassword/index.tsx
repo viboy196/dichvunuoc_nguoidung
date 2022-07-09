@@ -9,12 +9,10 @@ import {
 import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
-import {validateName, validatePassword} from '../../utils/validate';
+import {validateName} from '../../utils/validate';
 
 export default function Register() {
   const [textPhone, setTextPhone] = useState('Admin');
-
-  const [textPassword, setTextPassword] = useState('Admin123@');
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container}>
@@ -29,12 +27,16 @@ export default function Register() {
               style={styles.logoImage}
             />
             <Text style={styles.logoText}> DỊCH VỤ NƯỚC </Text>
-            <Text style={styles.logoText}> Đăng Ký </Text>
+            <Text style={styles.logoText}> Quên mật khẩu </Text>
           </View>
           <View style={styles.body}>
+            <Text style={{marginLeft: 20, marginTop: 10}}>
+              {' '}
+              Vui lòng điền thông tin dưới đây{' '}
+            </Text>
             <View style={styles.fromInput}>
               <Input
-                title={'Số điện thoại'}
+                title={'Số điện thoại hoặc mã khách hàng'}
                 value={textPhone}
                 keyboardType={'numeric'}
                 onChangeInput={(text: string) => {
@@ -49,48 +51,15 @@ export default function Register() {
                     : 'Số điện thoại không hợp lệ'
                 }
               />
-              <Input
-                title={'Mật khẩu'}
-                value={textPassword}
-                onChangeInput={(text: string) => {
-                  console.log(text);
-                  setTextPassword(text);
-                }}
-                icon="key"
-                color={tintColorLight}
-                secureTextEntry={true}
-                errorMessages={
-                  validatePassword(textPassword)
-                    ? undefined
-                    : 'mật khẩu quá ngắn'
-                }
-              />
-              <Input
-                title={'Nhập lại mật khẩu'}
-                value={textPassword}
-                onChangeInput={(text: string) => {
-                  console.log(text);
-                  setTextPassword(text);
-                }}
-                icon="key"
-                color={tintColorLight}
-                secureTextEntry={true}
-                errorMessages={
-                  validatePassword(textPassword)
-                    ? undefined
-                    : 'mật khẩu quá ngắn'
-                }
-              />
             </View>
             <View style={styles.btnLoginViewBorder}>
               <TouchableOpacity style={styles.btnLoginView} onPress={() => {}}>
-                <Text style={styles.btnLoginText}>Đăng ký</Text>
+                <Text style={styles.btnLoginText}>Xác nhận</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.redoLogin}>
-              <Text style={styles.redoLoginTextInfo}> Đã có tài khoản?</Text>
               <TouchableOpacity>
-                <Text style={styles.redoLoginTextInfoLogin}> Đăng nhập </Text>
+                <Text style={styles.redoLoginTextInfoLogin}> Quay lại </Text>
               </TouchableOpacity>
             </View>
           </View>
