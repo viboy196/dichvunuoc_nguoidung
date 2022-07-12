@@ -22,6 +22,8 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   Main: NavigatorScreenParams<RootTabParamList> | undefined;
+  Account: undefined;
+  changePassword: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

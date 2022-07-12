@@ -11,13 +11,17 @@ import Button from '../../components/items/Button';
 import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
+import {RootStackScreenProps} from '../../navigation/types';
+import {loginAsync} from '../../redux/features/auth/authSlices';
+import {useAppDispatch} from '../../redux/store/hooks';
 import {validateName, validatePassword} from '../../utils/validate';
 
-export default function Login() {
+export default function Login({navigation}: RootStackScreenProps<'Login'>) {
+  const dispatch = useAppDispatch();
   const [textPhone, setTextPhone] = useState('Admin');
-
   const [textPassword, setTextPassword] = useState('Admin123@');
   const [checked, setChecked] = React.useState(false);
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container}>
@@ -85,12 +89,22 @@ export default function Login() {
               </TouchableOpacity>
             </View>
             <View style={styles.btnLoginViewBorder}>
-              <TouchableOpacity style={styles.btnLoginView} onPress={() => {}}>
+              <TouchableOpacity
+                style={styles.btnLoginView}
+                onPress={() => {
+                  dispatch(
+                    loginAsync({phone: textPhone, password: textPassword}),
+                  );
+                }}>
                 <Text style={styles.btnLoginText}>Đăng nhập</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.viewInfo}>
-              <TouchableOpacity style={styles.viewTextInfo}>
+              <TouchableOpacity
+                style={styles.viewTextInfo}
+                onPress={() => {
+                  navigation.navigate('Register');
+                }}>
                 <Text style={styles.textInfo}>Đăng ký</Text>
               </TouchableOpacity>
               <View style={styles.empty} />

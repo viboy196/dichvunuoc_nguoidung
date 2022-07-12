@@ -15,6 +15,8 @@ const linking: LinkingOptions<RootStackParamList> = {
       WelCome: 'WelCome',
       Login: 'Login',
       Register: 'Register',
+      Account: 'Account',
+      changePassword: 'ChangePassword',
       Main: {
         screens: {
           TabOne: {

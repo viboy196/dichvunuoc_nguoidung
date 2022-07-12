@@ -5,7 +5,8 @@ import {tintColorLight} from '../../constants/Colors';
 import Input from '../../components/items/InputForm';
 import {validatePassword} from '../../utils/validate';
 
-export default function changePassword() {
+export default function ChangePassword() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [textPassword, setTextPassword] = useState('Admin123@');
 
   return (
@@ -15,10 +16,7 @@ export default function changePassword() {
       <Input
         title={'Mật khẩu cũ'}
         value={textPassword}
-        onChangeInput={(text: string) => {
-          console.log(text);
-          setTextPassword(text);
-        }}
+        onChangeInput={setTextPassword}
         icon="key"
         color={tintColorLight}
         secureTextEntry={true}

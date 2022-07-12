@@ -9,9 +9,12 @@ import {
 import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
+import {RootStackScreenProps} from '../../navigation/types';
 import {validateName, validatePassword} from '../../utils/validate';
 
-export default function Register() {
+export default function Register({
+  navigation,
+}: RootStackScreenProps<'Register'>) {
   const [textPhone, setTextPhone] = useState('Admin');
 
   const [textPassword, setTextPassword] = useState('Admin123@');
@@ -89,7 +92,12 @@ export default function Register() {
             </View>
             <View style={styles.redoLogin}>
               <Text style={styles.redoLoginTextInfo}> Đã có tài khoản?</Text>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (navigation.canGoBack()) {
+                    navigation.goBack();
+                  }
+                }}>
                 <Text style={styles.redoLoginTextInfoLogin}> Đăng nhập </Text>
               </TouchableOpacity>
             </View>

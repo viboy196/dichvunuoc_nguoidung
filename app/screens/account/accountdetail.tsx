@@ -2,8 +2,14 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import {TextInput} from 'react-native-paper';
 import {tintColorLight} from '../../constants/Colors';
+import {RootStackScreenProps} from '../../navigation/types';
+import {useAppDispatch} from '../../redux/store/hooks';
+import {logOut} from '../../redux/features/auth/authSlices';
 
-export default function accountDetail() {
+export default function AccountDetail({
+  navigation,
+}: RootStackScreenProps<'Account'>) {
+  const dispatch = useAppDispatch();
   return (
     <View>
       <View>
@@ -24,7 +30,11 @@ export default function accountDetail() {
         <TextInput />
       </View>
       <View style={{...styles.btnLoginViewBorder, marginTop: 10}}>
-        <TouchableOpacity style={styles.btnLoginView} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.btnLoginView}
+          onPress={() => {
+            navigation.navigate('changePassword');
+          }}>
           <Text style={styles.btnLoginText}>Thay đổi mật khẩu</Text>
         </TouchableOpacity>
       </View>
@@ -42,7 +52,10 @@ export default function accountDetail() {
       <View style={styles.btnLoginViewBorder}>
         <TouchableOpacity
           style={{...styles.btnLoginView, backgroundColor: 'red'}}
-          onPress={() => {}}>
+          onPress={() => {
+            navigation.goBack();
+            dispatch(logOut());
+          }}>
           <Text style={styles.btnLoginText}> Đăng xuất </Text>
         </TouchableOpacity>
       </View>

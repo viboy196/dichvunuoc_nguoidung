@@ -12,12 +12,12 @@ import ReportScreen from './app/screens/report';
 import RegisterScreen from './app/screens/register';
 import SupportRegisterScreen from './app/screens/register/supportRegister';
 import ForgotPasswordScreen from './app/screens/forgotpassword/index';
-import AccountDetailScreen from './app/screens/account/accountDetail';
-import ChangePasswordScreen from './app/screens/account/changePassword';
+import AccountDetailScreen from './app/screens/account/accountdetail';
+import ChangePasswordScreen from './app/screens/account/changepassword';
 import ContractInformation from './app/screens/account/contractinformation';
 import receipt from './app/screens/account/receipt';
 import waterbill from './app/screens/account/waterbill';
 
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => waterbill);
+AppRegistry.registerComponent(appName, () => App);
