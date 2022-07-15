@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
+  Alert,
   Image,
   ImageBackground,
   ScrollView,
@@ -10,14 +11,33 @@ import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
 import {RootStackScreenProps} from '../../navigation/types';
-import {validateName, validatePassword} from '../../utils/validate';
+import {InputRegister} from '../../utils/api/apiTypes';
+import ApiRequest from '../../utils/api/Main/ApiRequest';
+import {
+  validateName,
+  validatePassword,
+  validatePasswordReDo,
+} from '../../utils/validate';
 
 export default function Register({
   navigation,
 }: RootStackScreenProps<'Register'>) {
-  const [textPhone, setTextPhone] = useState('Admin');
+  const [textPhone, setTextPhone] = useState('0962635719');
+  const [textFullName, setTextFullName] = useState('Nguyễn Văn Đàn');
 
   const [textPassword, setTextPassword] = useState('Admin123@');
+  const [textPasswordRedo, setTextPasswordRedo] = useState('Admin123@');
+
+  const RegisterFunct = useCallback(async (input: InputRegister) => {
+    const res = await ApiRequest.RegisterApi(input);
+    console.log('registerApi', res);
+    if (res.errorMessage) {
+      Alert.alert('Lỗi', res.errorMessage);
+    }
+    if (res.code === '00') {
+      Alert.alert('Thành công', 'Đăng ký thành công');
+    }
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container}>
@@ -36,6 +56,21 @@ export default function Register({
           </View>
           <View style={styles.body}>
             <View style={styles.fromInput}>
+              <Input
+                title={'Họ và tên'}
+                value={textFullName}
+                onChangeInput={(text: string) => {
+                  console.log(text);
+                  setTextFullName(text);
+                }}
+                icon="phone"
+                color={tintColorLight}
+                errorMessages={
+                  validateName(textPhone)
+                    ? undefined
+                    : 'Số điện thoại không hợp lệ'
+                }
+              />
               <Input
                 title={'Số điện thoại'}
                 value={textPhone}
@@ -70,23 +105,31 @@ export default function Register({
               />
               <Input
                 title={'Nhập lại mật khẩu'}
-                value={textPassword}
+                value={textPasswordRedo}
                 onChangeInput={(text: string) => {
                   console.log(text);
-                  setTextPassword(text);
+                  setTextPasswordRedo(text);
                 }}
                 icon="key"
                 color={tintColorLight}
                 secureTextEntry={true}
                 errorMessages={
-                  validatePassword(textPassword)
+                  validatePasswordReDo(textPassword, textPasswordRedo)
                     ? undefined
-                    : 'mật khẩu quá ngắn'
+                    : 'Mật khẩu không trùng Khớp'
                 }
               />
             </View>
             <View style={styles.btnLoginViewBorder}>
-              <TouchableOpacity style={styles.btnLoginView} onPress={() => {}}>
+              <TouchableOpacity
+                style={styles.btnLoginView}
+                onPress={() => {
+                  RegisterFunct({
+                    fullName: textFullName,
+                    passwordHash: textPassword,
+                    userName: textPhone,
+                  });
+                }}>
                 <Text style={styles.btnLoginText}>Đăng ký</Text>
               </TouchableOpacity>
             </View>

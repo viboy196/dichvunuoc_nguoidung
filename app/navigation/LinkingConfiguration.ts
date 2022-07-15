@@ -17,6 +17,14 @@ const linking: LinkingOptions<RootStackParamList> = {
       Register: 'Register',
       Account: 'Account',
       changePassword: 'ChangePassword',
+      AccountViewDetail: 'AccountViewDetail',
+      supportRegister: 'supportRegister',
+      forgotpassword: 'forgotpassword',
+      InstallWaterScreen: 'InstallWaterScreen',
+      report: 'report',
+      WaterBill: 'WaterBill',
+      SendRequire: 'SendRequire',
+      WaterInvoice: 'WaterInvoice',
       Main: {
         screens: {
           TabOne: {
@@ -33,6 +41,12 @@ const linking: LinkingOptions<RootStackParamList> = {
           TabThree: {
             screens: {
               TabTwoScreen: 'three',
+            },
+          },
+
+          TabFour: {
+            screens: {
+              TabFour: 'four',
             },
           },
         },

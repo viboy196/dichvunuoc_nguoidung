@@ -18,6 +18,9 @@ export function validatePassword(name: string): boolean {
   }
   return name.length > 0;
 }
+export function validatePasswordReDo(pass: string, passRedo: string): boolean {
+  return pass === passRedo;
+}
 
 // function ValidateEmail(email: string): Boolean {
 //   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);

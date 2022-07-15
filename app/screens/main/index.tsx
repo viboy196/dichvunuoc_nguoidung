@@ -8,6 +8,7 @@ import {RootTabParamList /*,RootTabScreenProps*/} from '../../navigation/types';
 import TabOneScreen from './TabOneScreen';
 import TabThreeScreen from './TabThreeScreen';
 import TabTwoScreen from './TabTwoScreen';
+import SearchScreen from '../account/search';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -51,11 +52,11 @@ export default function MainScreen() {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={TabTwoScreen}
+        component={SearchScreen}
         options={{
-          title: 'Thông báo',
+          title: 'Tìm kiếm',
           headerShown: false,
-          tabBarIcon: ({color}) => <TabBarIcon name="bell" color={color} />,
+          tabBarIcon: ({color}) => <TabBarIcon name="search" color={color} />,
         }}
         // listeners={{
         //   tabPress: e => {
@@ -63,9 +64,24 @@ export default function MainScreen() {
         //   },
         // }}
       />
-
       <BottomTab.Screen
         name="TabThree"
+        component={TabTwoScreen}
+        options={{
+          title: 'dịch vụ',
+          headerShown: false,
+          tabBarIcon: ({color}) => (
+            <TabBarIcon name="servicestack" color={color} />
+          ),
+        }}
+        // listeners={{
+        //   tabPress: e => {
+        //     dispatch(removeCountNotifi());
+        //   },
+        // }}
+      />
+      <BottomTab.Screen
+        name="TabFour"
         component={TabThreeScreen}
         options={{
           title: 'Tùy chọn',

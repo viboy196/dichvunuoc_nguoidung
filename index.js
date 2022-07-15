@@ -17,6 +17,7 @@ import ChangePasswordScreen from './app/screens/account/changepassword';
 import ContractInformation from './app/screens/account/contractinformation';
 import receipt from './app/screens/account/receipt';
 import waterbill from './app/screens/account/waterbill';
+import forgotpassword from './app/screens/forgotpassword';
 
 import {name as appName} from './app.json';
 

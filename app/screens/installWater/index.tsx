@@ -1,57 +1,77 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Alert, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, View} from '../../components/Themed';
 export default function InstallWaterScreen() {
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
-        <View style={styles.viewItemImage}>
-          <Image
-            source={require('../../assets/images/installWater/deal.png')}
-            resizeMode="cover"
-            style={styles.itemImage}
-          />
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert('thông báo', 'tính năng đang phát triển');
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/deal.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Thỏa thuận đấu nối cấp nước </Text>
+          </View>
         </View>
-        <View style={styles.viewItemText}>
-          <Text style={styles.itemText}> Thỏa thuận đấu nối cấp nước </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert('thông báo', 'tính năng đang phát triển');
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/deal.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Cấp nước hộ gia đình </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.items}>
-        <View style={styles.viewItemImage}>
-          <Image
-            source={require('../../assets/images/installWater/deal.png')}
-            resizeMode="cover"
-            style={styles.itemImage}
-          />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert('thông báo', 'tính năng đang phát triển');
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/deal.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Cấp nước cơ quan tổ chức </Text>
+          </View>
         </View>
-        <View style={styles.viewItemText}>
-          <Text style={styles.itemText}> Cấp nước hộ gia đình </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert('thông báo', 'tính năng đang phát triển');
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/deal.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Tiến độ hồ sơ </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.items}>
-        <View style={styles.viewItemImage}>
-          <Image
-            source={require('../../assets/images/installWater/deal.png')}
-            resizeMode="cover"
-            style={styles.itemImage}
-          />
-        </View>
-        <View style={styles.viewItemText}>
-          <Text style={styles.itemText}> Cấp nước cơ quan tổ chức </Text>
-        </View>
-      </View>
-      <View style={styles.items}>
-        <View style={styles.viewItemImage}>
-          <Image
-            source={require('../../assets/images/installWater/deal.png')}
-            resizeMode="cover"
-            style={styles.itemImage}
-          />
-        </View>
-        <View style={styles.viewItemText}>
-          <Text style={styles.itemText}> Tiến độ hồ sơ </Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import ApiRequest from '../../../utils/api/Main/ApiRequest';
 
@@ -7,12 +7,12 @@ export type UsersState = {
   token?: string;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   errorMessage?: string;
+  userName?: string;
 };
 const initialState = {
   loading: 'idle',
   token: undefined,
 } as UsersState;
-
 export const loginAsync = createAsyncThunk(
   'auth/login',
   // if you type your function argument here
@@ -29,6 +29,14 @@ const authSlice = createSlice({
       state = {
         ...state,
         token: undefined,
+        userName: undefined,
+      };
+      return state;
+    },
+    addUserName(state, action: PayloadAction<{userName: string}>) {
+      state = {
+        ...state,
+        userName: action.payload.userName,
       };
       return state;
     },
@@ -60,7 +68,7 @@ const authSlice = createSlice({
       });
   },
 });
-export const {logOut} = authSlice.actions;
+export const {logOut, addUserName} = authSlice.actions;
 
 const persistConfig = {
   key: 'root',

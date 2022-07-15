@@ -27,7 +27,7 @@ const register = createSlice({
         return state;
       })
       .addCase(registerAsync.fulfilled, (state, action) => {
-        if (action.payload.status === true) {
+        if (action.payload.code === '00') {
           state = {
             ...state,
             loading: 'succeeded',

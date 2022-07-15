@@ -5,8 +5,6 @@ const host = 'http://14.225.3.190:8911/api';
 axios.defaults.baseURL = host;
 const urlLogin = '/AppUser/auth?v=1.0';
 
-const urlRegister = '/NguoiDung/register?v=1.0';
-
 // const urlDetail = '/NguoiDung/Detail?v=1.0';
 const getUrlDetail = (userName: string) =>
   `/AppUser/detail?userName=${userName}&v=1.0`;
@@ -54,6 +52,101 @@ export default class ApiRequest {
     };
     const res = await axios.get(urlDetail, config);
     console.log(`${tag} data key.length :`, Object.keys(res.data).length);
+    return res.data as ExcuteResult;
+  };
+  static DetailWaterUserByUser = async (
+    token: string,
+    userName: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'DetailInfoNguoiDung';
+    const url = `/WaterUser/all-by-user?userName=${userName}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
+    return res.data as ExcuteResult;
+  };
+
+  static WaterIndexAllByWateruser = async (
+    token: string,
+    waterUserId: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'DetailInfoNguoiDung';
+    const url = `/WaterIndex/all-by-wateruser?waterUserId=${waterUserId}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
+    return res.data as ExcuteResult;
+  };
+
+  static WaterInvoiceAllByWaterUser = async (
+    token: string,
+    waterUserId: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'WaterInvoiceAllByWaterUser';
+    const url = `/WaterInvoice/all-by-wateruser?waterUserId=${waterUserId}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
+    return res.data as ExcuteResult;
+  };
+  static WaterInvoiceDetailByWaterUserYearMonth = async (
+    token: string,
+    waterUserId: string,
+    year: string,
+    month: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'WaterInvoiceAllByWaterUser';
+    const url = `/WaterInvoice/detail-by-wateruser-year-month?waterUserId=${waterUserId}&year=${year}&month=${month}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
+    return res.data as ExcuteResult;
+  };
+
+  static DetailWaterIndex = async (
+    token: string,
+    id: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'detailWaterIndex';
+    const url = `/WaterIndex/detail?id=${id}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
     return res.data as ExcuteResult;
   };
   static GetListCongviecBySystemAnninh = async (data: {
@@ -111,6 +204,7 @@ export default class ApiRequest {
   };
 
   static RegisterApi = async (input: InputRegister): Promise<ExcuteResult> => {
+    const urlRegister = '/AppUser/register?v=1.0';
     console.log('urlRegister ', urlRegister);
     const res = await axios.post(urlRegister, input);
     console.log(res.data);
@@ -142,25 +236,6 @@ export default class ApiRequest {
   }): Promise<ExcuteResult> => {
     const tag = 'GetWaterUserAllByTollarea';
     const url = `/WaterUser/all-by-tollarea?tollAreaId=${data.tollAreaId}&v=1.0`;
-    console.log(`${tag} url:`, url);
-
-    const config: AxiosRequestConfig = {
-      headers: {
-        Authorization: `bearer ${data.token}`,
-        accept: 'text/plain',
-      },
-    };
-    const res = await axios.get(url, config);
-    console.log(`${tag} data key.length :`, Object.keys(res.data).length);
-    return res.data as ExcuteResult;
-  };
-
-  static WaterInvoiceAllByWateruser = async (data: {
-    token: string;
-    waterUserId: string;
-  }): Promise<ExcuteResult> => {
-    const tag = 'GetWaterInvoiceAllByWateruser';
-    const url = `/WaterInvoice/all-by-wateruser?waterUserId=${data.waterUserId}&v=1.0`;
     console.log(`${tag} url:`, url);
 
     const config: AxiosRequestConfig = {

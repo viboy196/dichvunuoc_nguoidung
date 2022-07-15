@@ -5,10 +5,9 @@ export interface ExcuteResult {
 }
 
 export type InputRegister = {
-  phone: string;
-  password: string;
+  userName: string;
+  passwordHash: string;
   fullName: string;
-  email: string;
 };
 
 export type InfoResult = {

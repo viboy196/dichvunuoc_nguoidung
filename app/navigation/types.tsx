@@ -24,6 +24,19 @@ export type RootStackParamList = {
   Main: NavigatorScreenParams<RootTabParamList> | undefined;
   Account: undefined;
   changePassword: undefined;
+  AccountViewDetail: {waterUserId: string; name: string; address: string};
+  supportRegister: undefined;
+  forgotpassword: undefined;
+  InstallWaterScreen: undefined;
+  report: undefined;
+  WaterBill: {waterUserId: string; name: string};
+  SendRequire: undefined;
+  WaterInvoice: {
+    waterUserId: string;
+    name: string;
+    year: string;
+    month: string;
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -33,6 +46,7 @@ export type RootTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
   TabThree: undefined;
+  TabFour: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

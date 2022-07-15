@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   Image,
   ImageBackground,
   ScrollView,
+  Share,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -12,16 +14,34 @@ import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
 import {RootStackScreenProps} from '../../navigation/types';
-import {loginAsync} from '../../redux/features/auth/authSlices';
+import {loginAsync, addUserName} from '../../redux/features/auth/authSlices';
 import {useAppDispatch} from '../../redux/store/hooks';
 import {validateName, validatePassword} from '../../utils/validate';
 
 export default function Login({navigation}: RootStackScreenProps<'Login'>) {
   const dispatch = useAppDispatch();
-  const [textPhone, setTextPhone] = useState('Admin');
-  const [textPassword, setTextPassword] = useState('Admin123@');
+  const [textPhone, setTextPhone] = useState('0962635719');
+  const [textPassword, setTextPassword] = useState('Dannv0212@@');
   const [checked, setChecked] = React.useState(false);
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'dịch vụ nước , chăm sóc khách hàng',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container}>
@@ -92,6 +112,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
               <TouchableOpacity
                 style={styles.btnLoginView}
                 onPress={() => {
+                  dispatch(addUserName({userName: textPhone}));
                   dispatch(
                     loginAsync({phone: textPhone, password: textPassword}),
                   );
@@ -108,16 +129,32 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 <Text style={styles.textInfo}>Đăng ký</Text>
               </TouchableOpacity>
               <View style={styles.empty} />
-              <TouchableOpacity style={styles.viewTextInfo}>
+              <TouchableOpacity
+                style={styles.viewTextInfo}
+                onPress={() => {
+                  navigation.navigate('forgotpassword');
+                }}>
                 <Text style={styles.textInfo}>Quên mật khẩu</Text>
               </TouchableOpacity>
+            </View>
+            <View style={styles.viewInfo}>
+              <TouchableOpacity
+                style={styles.viewTextInfo}
+                onPress={() => {
+                  navigation.navigate('supportRegister');
+                }}>
+                <Text style={styles.textInfo}>Hướng dẫn đăng ký</Text>
+              </TouchableOpacity>
+              <View style={styles.empty} />
             </View>
             <View style={styles.viewButtonInfo}>
               <View style={styles.viewButtonItem}>
                 <Button
                   iconName="tune"
                   BackgroundColor={tintColorLight}
-                  onPress={() => {}}
+                  onPress={() => {
+                    navigation.navigate('InstallWaterScreen');
+                  }}
                 />
                 <View style={styles.viewButtonItemText}>
                   <Text>Đăng ký</Text>
@@ -128,7 +165,9 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 <Button
                   iconName="tune"
                   BackgroundColor={tintColorLight}
-                  onPress={() => {}}
+                  onPress={() => {
+                    navigation.navigate('report');
+                  }}
                 />
                 <View style={styles.viewButtonItemText}>
                   <Text>Báo sự cố</Text>
@@ -139,7 +178,9 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 <Button
                   iconName="tune"
                   BackgroundColor={tintColorLight}
-                  onPress={() => {}}
+                  onPress={() => {
+                    Alert.alert('Tổng đài CSKH', '1900 400 002');
+                  }}
                 />
                 <View style={styles.viewButtonItemText}>
                   <Text>Liên hệ</Text>
@@ -149,7 +190,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 <Button
                   iconName="tune"
                   BackgroundColor={tintColorLight}
-                  onPress={() => {}}
+                  onPress={onShare}
                 />
                 <View style={styles.viewButtonItemText}>
                   <Text>Chia sẻ</Text>
@@ -165,7 +206,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: '#fff',
   },
   backgroundImage: {
     flex: 1,
@@ -203,6 +244,7 @@ const styles = StyleSheet.create({
   },
   viewInfo: {
     flexDirection: 'row',
+    marginVertical: 10,
   },
   textInfo: {
     color: tintColorLight,
@@ -236,15 +278,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   viewButtonInfo: {
-    margin: 20,
     flexDirection: 'row',
     width: '100%',
-    flex: 1,
+    height: 120,
   },
   viewButtonItem: {
     flex: 1,
-    height: 210,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   viewButtonItemText: {
     marginTop: 5,
