@@ -25,6 +25,7 @@ import ReportScreen from '../screens/report';
 import WaterBillScreen from '../screens/account/waterbill';
 import SendRequireScreen from '../screens/account/send_require';
 import WaterInvoiceScreen from '../screens/account/waterInvoice';
+import WebViewScreen from '../screens/WebView';
 
 export default function Navigation({
   colorScheme,
@@ -117,6 +118,14 @@ function RootNavigator() {
       />
 
       <Stack.Screen
+        name="MyWebView"
+        component={WebViewScreen}
+        options={({route}) => ({
+          title: `${route.params.title}`,
+        })}
+      />
+
+      <Stack.Screen
         name="supportRegister"
         component={SupportRegisterScreen}
         options={{headerShown: false}}
@@ -125,7 +134,7 @@ function RootNavigator() {
       <Stack.Screen
         name="AccountViewDetail"
         component={AccountViewDetailScreen}
-        options={{headerShown: false}}
+        options={{title: 'Thông tin khách hàng'}}
       />
     </Stack.Navigator>
   );

@@ -1,8 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, View} from '../../components/Themed';
-import Colors from '../../constants/Colors';
+import Colors, {tintColorLight} from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
 import {RootTabParamList /*,RootTabScreenProps*/} from '../../navigation/types';
 import TabOneScreen from './TabOneScreen';
@@ -11,10 +11,13 @@ import TabTwoScreen from './TabTwoScreen';
 import SearchScreen from '../account/search';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {useAppDispatch} from '../../redux/store/hooks';
+import {logOut} from '../../redux/features/auth/authSlices';
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 export default function MainScreen() {
   const colorScheme = useColorScheme();
+  const dispatch = useAppDispatch();
 
   return (
     <BottomTab.Navigator
@@ -55,7 +58,8 @@ export default function MainScreen() {
         component={SearchScreen}
         options={{
           title: 'Tìm kiếm',
-          headerShown: false,
+          headerShown: true,
+          header: () => <HeaderShow name="Tìm kiếm" />,
           tabBarIcon: ({color}) => <TabBarIcon name="search" color={color} />,
         }}
         // listeners={{
@@ -68,8 +72,10 @@ export default function MainScreen() {
         name="TabThree"
         component={TabTwoScreen}
         options={{
-          title: 'dịch vụ',
-          headerShown: false,
+          title: 'Dịch vụ',
+          headerShown: true,
+          header: () => <HeaderShow name="Dịch vụ" />,
+
           tabBarIcon: ({color}) => (
             <TabBarIcon name="servicestack" color={color} />
           ),
@@ -85,7 +91,16 @@ export default function MainScreen() {
         component={TabThreeScreen}
         options={{
           title: 'Tùy chọn',
-          headerShown: false,
+          headerShown: true,
+          header: () => (
+            <HeaderShow
+              name="Tùy chọn"
+              logout={() => {
+                dispatch(logOut());
+              }}
+            />
+          ),
+
           tabBarIcon: ({color}) => <TabBarIcon name="bars" color={color} />,
         }}
       />
@@ -112,11 +127,44 @@ export function TabBarIcon(props: {
     </View>
   );
 }
+export function HeaderShow(props: {name: string; logout?: () => void}) {
+  return (
+    <View style={styles.header}>
+      <Text
+        style={{
+          marginLeft: 30,
+          fontSize: 22,
+          fontWeight: '700',
+          color: '#fff',
+        }}>
+        {props.name}
+      </Text>
+      <View style={{flex: 1}} />
+      {props.logout && (
+        <TouchableOpacity style={{marginRight: 20}} onPress={props.logout}>
+          <TabBarIcon color="#fff" name="sign-out-alt" />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   tabBarIconView: {
     width: 30,
     height: 30,
+  },
+  header: {
+    backgroundColor: tintColorLight,
+    width: '100%',
+    height: 90,
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   icon: {marginBottom: -3},
   notificationNumView: {

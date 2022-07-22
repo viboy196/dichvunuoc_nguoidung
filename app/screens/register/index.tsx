@@ -17,29 +17,49 @@ import {
   validateName,
   validatePassword,
   validatePasswordReDo,
+  validatePhoneNumber,
 } from '../../utils/validate';
+
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function Register({
   navigation,
 }: RootStackScreenProps<'Register'>) {
-  const [textPhone, setTextPhone] = useState('0962635719');
-  const [textFullName, setTextFullName] = useState('Nguyễn Văn Đàn');
+  const [textPhone, setTextPhone] = useState<string>();
+  const [textFullName, setTextFullName] = useState<string>();
 
-  const [textPassword, setTextPassword] = useState('Admin123@');
-  const [textPasswordRedo, setTextPasswordRedo] = useState('Admin123@');
+  const [textPassword, setTextPassword] = useState<string>();
+  const [textPasswordRedo, setTextPasswordRedo] = useState<string>();
+
+  const [spinnerBl, setSpinnerBl] = useState<boolean>(false);
+  console.log(spinnerBl);
 
   const RegisterFunct = useCallback(async (input: InputRegister) => {
-    const res = await ApiRequest.RegisterApi(input);
-    console.log('registerApi', res);
-    if (res.errorMessage) {
-      Alert.alert('Lỗi', res.errorMessage);
-    }
-    if (res.code === '00') {
-      Alert.alert('Thành công', 'Đăng ký thành công');
-    }
+    ApiRequest.RegisterApi(input)
+      .then(data => {
+        if (data.code === '00') {
+          Alert.alert('Thành công', 'Đăng ký thành công');
+        }
+        if (data.errorMessage) {
+          Alert.alert('Lỗi', data.errorMessage);
+        }
+
+        setSpinnerBl(false);
+      })
+      .catch(() => {
+        setSpinnerBl(false);
+      });
   }, []);
   return (
     <View style={styles.container}>
+      {spinnerBl === true && (
+        <Spinner
+          visible={true}
+          textContent={'Đăng ký ...'}
+          textStyle={styles.spinnerTextStyle}
+        />
+      )}
+
       <ScrollView style={styles.container}>
         <ImageBackground
           source={require('../../assets/images/water.jpg')}
@@ -63,10 +83,10 @@ export default function Register({
                   console.log(text);
                   setTextFullName(text);
                 }}
-                icon="phone"
+                icon="users"
                 color={tintColorLight}
                 errorMessages={
-                  validateName(textPhone)
+                  validateName(textFullName)
                     ? undefined
                     : 'Số điện thoại không hợp lệ'
                 }
@@ -82,7 +102,7 @@ export default function Register({
                 icon="phone"
                 color={tintColorLight}
                 errorMessages={
-                  validateName(textPhone)
+                  validatePhoneNumber(textPhone)
                     ? undefined
                     : 'Số điện thoại không hợp lệ'
                 }
@@ -100,7 +120,7 @@ export default function Register({
                 errorMessages={
                   validatePassword(textPassword)
                     ? undefined
-                    : 'mật khẩu quá ngắn'
+                    : 'mật khẩu phải nhiều hơn 6 kí tự có chữ cái'
                 }
               />
               <Input
@@ -124,11 +144,22 @@ export default function Register({
               <TouchableOpacity
                 style={styles.btnLoginView}
                 onPress={() => {
-                  RegisterFunct({
-                    fullName: textFullName,
-                    passwordHash: textPassword,
-                    userName: textPhone,
-                  });
+                  setSpinnerBl(true);
+                  if (
+                    textFullName &&
+                    textPassword &&
+                    textPhone &&
+                    validateName(textFullName) &&
+                    validatePhoneNumber(textPhone) &&
+                    validatePassword(textPassword) &&
+                    validatePasswordReDo(textPassword, textPasswordRedo)
+                  ) {
+                    RegisterFunct({
+                      fullName: textFullName,
+                      passwordHash: textPassword,
+                      userName: textPhone,
+                    });
+                  }
                 }}>
                 <Text style={styles.btnLoginText}>Đăng ký</Text>
               </TouchableOpacity>
@@ -154,6 +185,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
   },
   backgroundImage: {
     flex: 1,

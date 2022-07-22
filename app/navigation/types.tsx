@@ -37,6 +37,7 @@ export type RootStackParamList = {
     year: string;
     month: string;
   };
+  MyWebView: {title: string; url: string};
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

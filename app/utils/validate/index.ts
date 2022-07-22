@@ -1,24 +1,31 @@
-export function validatePhoneNumber(number: string): boolean {
-  if (number === '') {
+export function validatePhoneNumber(number: string | undefined): boolean {
+  if (number === undefined) {
     return true;
   }
   return /([\+84|84|0|0084]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/.test(number);
 }
 
-export function validateName(name: string): boolean {
-  if (name === '') {
+export function validateName(name: string | undefined): boolean {
+  if (name === undefined) {
     return true;
   }
   return name.length >= 2;
 }
 
-export function validatePassword(name: string): boolean {
-  if (name === '') {
+export function validatePassword(name: string | undefined): boolean {
+  if (name === undefined) {
     return true;
   }
-  return name.length > 0;
+  return /^(?=.*[a-zA-Z])([a-zA-Z0-9]{6,})\b/.test(name);
 }
-export function validatePasswordReDo(pass: string, passRedo: string): boolean {
+
+export function validatePasswordReDo(
+  pass: string | undefined,
+  passRedo: string | undefined,
+): boolean {
+  if (pass === undefined && passRedo === undefined) {
+    return true;
+  }
   return pass === passRedo;
 }
 

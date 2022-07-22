@@ -47,24 +47,27 @@ export default function AccountViewDetail({
           style={styles.avatarImage}
         />
       </View>
-      <View style={{width: '70%'}}>
-        <Text>Ông/bà </Text>
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            padding: 10,
-            borderColor: tintColorLight,
-            borderWidth: 2,
-            borderRadius: 20,
-            marginTop: 5,
-          }}>
-          <Text style={{fontSize: 24}}> {route.params.name} </Text>
-        </View>
+      <View>
+        <Text>Ông/bà : {route.params.name} </Text>
+        {route.params.address && (
+          <View
+            style={{
+              width: '100%',
+              alignItems: 'center',
+              padding: 10,
+              borderColor: tintColorLight,
+              borderWidth: 2,
+              borderRadius: 20,
+              marginTop: 5,
+            }}>
+            <Text
+              style={{fontSize: 18, fontWeight: '700', color: tintColorLight}}>
+              {route.params.address}
+            </Text>
+          </View>
+        )}
       </View>
-      <Text style={{fontSize: 18, fontWeight: '700', color: tintColorLight}}>
-        {route.params.address}
-      </Text>
+
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Account');
@@ -118,16 +121,32 @@ export default function AccountViewDetail({
                 style={{width: '100%', height: 2, backgroundColor: '#e3e3e3'}}
               />
 
-              {/* <Text
-                style={{
-                  marginVertical: 5,
-                  fontWeight: 'bold',
-                  color: tintColorLight,
-                  fontSize: 16,
+              <TouchableOpacity
+                onPress={() => {
+                  if (
+                    route.params.waterUserId &&
+                    route.params.name &&
+                    item.waterMeterNumber > 0
+                  ) {
+                    navigation.navigate('WaterInvoice', {
+                      waterUserId: route.params.waterUserId,
+                      name: route.params.name,
+                      month: item.month,
+                      year: item.year,
+                    });
+                  }
                 }}>
-                {' '}
-                Xem hóa đơn{' >>'}
-              </Text> */}
+                <Text
+                  style={{
+                    marginVertical: 5,
+                    fontWeight: 'bold',
+                    color: tintColorLight,
+                    fontSize: 16,
+                  }}>
+                  {' '}
+                  Xem hóa đơn{' >>'}
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
         />
@@ -183,8 +202,8 @@ const styles = StyleSheet.create({
   container: {flex: 1, alignItems: 'center'},
   avatarView: {
     margin: 5,
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     borderRadius: 75,
     borderWidth: 2,
     borderColor: tintColorLight,
@@ -195,8 +214,8 @@ const styles = StyleSheet.create({
   },
 
   avatarImage: {
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     borderRadius: 150 / 2,
     overflow: 'hidden',
     borderWidth: 3,

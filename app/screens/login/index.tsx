@@ -1,49 +1,84 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Alert,
   Image,
   ImageBackground,
   ScrollView,
-  Share,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
 import {Checkbox} from 'react-native-paper';
 import Button from '../../components/items/Button';
 import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
 import {RootStackScreenProps} from '../../navigation/types';
-import {loginAsync, addUserName} from '../../redux/features/auth/authSlices';
-import {useAppDispatch} from '../../redux/store/hooks';
-import {validateName, validatePassword} from '../../utils/validate';
+import {
+  loginAsync,
+  logOut,
+  setStateAuthRemember,
+} from '../../redux/features/auth/authSlices';
+import {useAppDispatch, useAppSelector} from '../../redux/store/hooks';
+import {validatePassword, validatePhoneNumber} from '../../utils/validate';
 
 export default function Login({navigation}: RootStackScreenProps<'Login'>) {
-  const dispatch = useAppDispatch();
-  const [textPhone, setTextPhone] = useState('0962635719');
-  const [textPassword, setTextPassword] = useState('Dannv0212@@');
-  const [checked, setChecked] = React.useState(false);
+  const {loading, errorMessage, checkedAuth, userName, password} =
+    useAppSelector(state => state.auth);
+  console.log(errorMessage);
 
-  const onShare = async () => {
-    try {
-      const result = await Share.share({
-        message: 'dịch vụ nước , chăm sóc khách hàng',
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      console.log(error);
+  const dispatch = useAppDispatch();
+  const [textPhone, setTextPhone] = useState<string>();
+  const [textPassword, setTextPassword] = useState<string>();
+  const [checked, setChecked] = React.useState(false);
+  useEffect(() => {
+    if (checkedAuth && userName && password) {
+      setTextPhone(userName);
+      setTextPassword(password);
+      setChecked(checkedAuth);
     }
-  };
+  }, [checkedAuth, password, userName]);
+
+  if (errorMessage && loading !== 'idle') {
+    Alert.alert('lỗi', errorMessage);
+    dispatch(logOut());
+  }
+  const handlePressOpenUrl = useCallback(async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supportedURL = 'http://dichvunuoc.vn/show/dvn_mobile_policy';
+
+    navigation.navigate('MyWebView', {
+      title: 'Chính sách quy định',
+      url: supportedURL,
+    });
+  }, [navigation]);
+  // const onShare = async () => {
+  //   try {
+  //     const result = await Share.share({
+  //       message: 'dịch vụ nước , chăm sóc khách hàng',
+  //     });
+  //     if (result.action === Share.sharedAction) {
+  //       if (result.activityType) {
+  //         // shared with activity type of result.activityType
+  //       } else {
+  //         // shared
+  //       }
+  //     } else if (result.action === Share.dismissedAction) {
+  //       // dismissed
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <View style={styles.container}>
+      {loading === 'pending' && (
+        <Spinner
+          visible={true}
+          textContent={'Đăng Nhập ...'}
+          textStyle={styles.spinnerTextStyle}
+        />
+      )}
       <ScrollView style={styles.container}>
         <ImageBackground
           source={require('../../assets/images/water.jpg')}
@@ -70,7 +105,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 icon="phone"
                 color={tintColorLight}
                 errorMessages={
-                  validateName(textPhone)
+                  validatePhoneNumber(textPhone)
                     ? undefined
                     : 'Số điện thoại không hợp lệ'
                 }
@@ -88,7 +123,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 errorMessages={
                   validatePassword(textPassword)
                     ? undefined
-                    : 'mật khẩu quá ngắn'
+                    : 'mật khẩu phải nhiều hơn 6 kí tự có chữ cái'
                 }
               />
             </View>
@@ -104,7 +139,9 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 <Text style={styles.textInfoCheckBox}>Nhớ thông tin</Text>
               </View>
               <View style={styles.empty} />
-              <TouchableOpacity style={styles.viewTextInfo}>
+              <TouchableOpacity
+                style={styles.viewTextInfo}
+                onPress={handlePressOpenUrl}>
                 <Text style={styles.textInfo}>Chính sách và quy định</Text>
               </TouchableOpacity>
             </View>
@@ -112,10 +149,27 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
               <TouchableOpacity
                 style={styles.btnLoginView}
                 onPress={() => {
-                  dispatch(addUserName({userName: textPhone}));
-                  dispatch(
-                    loginAsync({phone: textPhone, password: textPassword}),
-                  );
+                  if (
+                    textPhone &&
+                    textPassword &&
+                    validatePhoneNumber(textPhone) &&
+                    validatePassword(textPassword)
+                  ) {
+                    dispatch(
+                      setStateAuthRemember({
+                        input: {
+                          loading: 'idle',
+                          checkedAuth: checked,
+                          userName: textPhone,
+                          password: textPassword,
+                        },
+                      }),
+                    );
+
+                    dispatch(
+                      loginAsync({phone: textPhone, password: textPassword}),
+                    );
+                  }
                 }}>
                 <Text style={styles.btnLoginText}>Đăng nhập</Text>
               </TouchableOpacity>
@@ -150,7 +204,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
             <View style={styles.viewButtonInfo}>
               <View style={styles.viewButtonItem}>
                 <Button
-                  iconName="tune"
+                  iconName="app-registration"
                   BackgroundColor={tintColorLight}
                   onPress={() => {
                     navigation.navigate('InstallWaterScreen');
@@ -163,10 +217,13 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
               </View>
               <View style={styles.viewButtonItem}>
                 <Button
-                  iconName="tune"
+                  iconName="handyman"
                   BackgroundColor={tintColorLight}
                   onPress={() => {
-                    navigation.navigate('report');
+                    navigation.navigate('MyWebView', {
+                      title: 'Báo cáo sự cố',
+                      url: 'http://dichvunuoc.vn/show/dvn_mobile_baocaosuco',
+                    });
                   }}
                 />
                 <View style={styles.viewButtonItemText}>
@@ -176,7 +233,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
               </View>
               <View style={styles.viewButtonItem}>
                 <Button
-                  iconName="tune"
+                  iconName="phone"
                   BackgroundColor={tintColorLight}
                   onPress={() => {
                     Alert.alert('Tổng đài CSKH', '1900 400 002');
@@ -186,16 +243,16 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                   <Text>Liên hệ</Text>
                 </View>
               </View>
-              <View style={styles.viewButtonItem}>
+              {/* <View style={styles.viewButtonItem}>
                 <Button
-                  iconName="tune"
+                  iconName="share"
                   BackgroundColor={tintColorLight}
                   onPress={onShare}
                 />
                 <View style={styles.viewButtonItemText}>
                   <Text>Chia sẻ</Text>
                 </View>
-              </View>
+              </View> */}
             </View>
           </View>
         </ImageBackground>
@@ -207,6 +264,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
   },
   backgroundImage: {
     flex: 1,
@@ -266,6 +326,11 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 5,
   },
   btnLoginText: {
     fontSize: 18,
@@ -275,7 +340,7 @@ const styles = StyleSheet.create({
   viewTextInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 10,
+    marginHorizontal: 10,
   },
   viewButtonInfo: {
     flexDirection: 'row',
@@ -290,5 +355,6 @@ const styles = StyleSheet.create({
   viewButtonItemText: {
     marginTop: 5,
     height: 30,
+    alignItems: 'center',
   },
 });

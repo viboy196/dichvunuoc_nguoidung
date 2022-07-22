@@ -1,34 +1,24 @@
 import React from 'react';
-import {Alert, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, View} from '../../components/Themed';
-export default function SearchScreen() {
+import {tintColorLight} from '../../constants/Colors';
+import {RootTabScreenProps} from '../../navigation/types';
+export default function SearchScreen({
+  navigation,
+}: RootTabScreenProps<'TabThree'>) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Lắp đặt đồng hồ ',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dichvu_lapdatdongho',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> thỏa thuận đấu nối cấp nước </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/tools.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -40,12 +30,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Thay đổi đường ống cụm đồng hồ nước',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dichvu_didoidongho',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/pipeline.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -60,12 +53,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: ' Kiểm tra kiểm định đồng hồ ',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dichvu_kiemtrakiemdinhdongho',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/compliant.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -77,12 +73,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Đề nghị tạm ngừng , mở nguồn , cấp nước',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dichvu_denghidongmo',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/pipeline_1.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -97,12 +96,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Thay đổi thông tin , ký lại hợp đồng',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dichvu_thaydoithongtin',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/info.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -110,7 +112,7 @@ export default function SearchScreen() {
           <View style={styles.viewItemText}>
             <Text style={styles.itemText}>
               {' '}
-              thay đổi thông tin , ký lại hợp đồng{' '}
+              Thay đổi thông tin , ký lại hợp đồng{' '}
             </Text>
           </View>
         </View>
@@ -124,13 +126,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   viewItemImage: {
-    width: 70,
+    width: 75,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 70,
-    backgroundColor: '#3e3e3e',
-    borderRadius: 20,
+    height: 75,
+    backgroundColor: tintColorLight,
+    borderRadius: 75,
     marginRight: 10,
+    marginLeft: 10,
   },
 
   itemImage: {
@@ -140,19 +143,23 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    marginHorizontal: 10,
-    marginTop: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 5,
   },
   viewItemText: {
     flex: 6,
     justifyContent: 'center',
-    height: 60,
-    backgroundColor: '#6e6e6e',
     borderRadius: 10,
   },
   itemText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: '#2d86ff',
   },

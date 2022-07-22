@@ -98,15 +98,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   viewItemImage: {
-    width: 70,
+    width: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 70,
+    height: 50,
     backgroundColor: '#3e3e3e',
-    borderRadius: 20,
+    borderRadius: 35,
     marginRight: 10,
   },
-
   itemImage: {
     width: 35,
     height: 35,
@@ -114,15 +113,20 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    marginHorizontal: 10,
-    marginTop: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 5,
   },
   viewItemText: {
     flex: 6,
     justifyContent: 'center',
     height: 40,
-    backgroundColor: '#6e6e6e',
     borderRadius: 10,
   },
   itemText: {

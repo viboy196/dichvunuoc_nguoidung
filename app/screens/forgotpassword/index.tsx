@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   Image,
   ImageBackground,
   ScrollView,
@@ -9,10 +10,13 @@ import {
 import Input from '../../components/items/InputForm';
 import {View, Text} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
+import {RootStackScreenProps} from '../../navigation/types';
 import {validateName} from '../../utils/validate';
 
-export default function Register() {
-  const [textPhone, setTextPhone] = useState('Admin');
+export default function Register({
+  navigation,
+}: RootStackScreenProps<'forgotpassword'>) {
+  const [textPhone, setTextPhone] = useState<string>();
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container}>
@@ -27,7 +31,7 @@ export default function Register() {
               style={styles.logoImage}
             />
             <Text style={styles.logoText}> DỊCH VỤ NƯỚC </Text>
-            <Text style={styles.logoText}> Quên mật khẩu </Text>
+            {/* <Text style={styles.logoText}> Quên mật khẩu </Text> */}
           </View>
           <View style={styles.body}>
             <Text style={{marginLeft: 20, marginTop: 10}}>
@@ -53,12 +57,21 @@ export default function Register() {
               />
             </View>
             <View style={styles.btnLoginViewBorder}>
-              <TouchableOpacity style={styles.btnLoginView} onPress={() => {}}>
+              <TouchableOpacity
+                style={styles.btnLoginView}
+                onPress={() => {
+                  Alert.alert('thông báo', 'Tính năng đang phát triển');
+                }}>
                 <Text style={styles.btnLoginText}>Xác nhận</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.redoLogin}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (navigation.canGoBack()) {
+                    navigation.goBack();
+                  }
+                }}>
                 <Text style={styles.redoLoginTextInfoLogin}> Quay lại </Text>
               </TouchableOpacity>
             </View>

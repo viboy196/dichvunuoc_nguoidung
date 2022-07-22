@@ -8,6 +8,9 @@ export type UsersState = {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   errorMessage?: string;
   userName?: string;
+  password?: string;
+  checkedAuth?: boolean;
+  waterFactoryId?: string;
 };
 const initialState = {
   loading: 'idle',
@@ -20,6 +23,13 @@ export const loginAsync = createAsyncThunk(
     return await ApiRequest.LoginApi(input);
   },
 );
+export const ChangeWaterFactory = createAsyncThunk(
+  'auth/ChangeWaterFactory',
+  // if you type your function argument here
+  async (input: {userName: string; waterFactoryId: string; token: string}) => {
+    return await ApiRequest.ChangeWaterFactory(input);
+  },
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -29,7 +39,9 @@ const authSlice = createSlice({
       state = {
         ...state,
         token: undefined,
-        userName: undefined,
+        errorMessage: undefined,
+        waterFactoryId: undefined,
+        loading: 'idle',
       };
       return state;
     },
@@ -37,6 +49,15 @@ const authSlice = createSlice({
       state = {
         ...state,
         userName: action.payload.userName,
+      };
+      return state;
+    },
+    setStateAuthRemember(state, action: PayloadAction<{input: UsersState}>) {
+      state = {
+        ...state,
+        userName: action.payload.input.userName,
+        password: action.payload.input.password,
+        checkedAuth: action.payload.input.checkedAuth,
       };
       return state;
     },
@@ -65,10 +86,28 @@ const authSlice = createSlice({
           };
         }
         return state;
+      })
+      .addCase(ChangeWaterFactory.fulfilled, (state, action) => {
+        console.log('ChangeWaterFactory fulfilled', action.payload);
+        if (action.payload.code === '00') {
+          state = {
+            ...state,
+            loading: 'succeeded',
+            token: action.payload.result,
+          };
+        } else {
+          state = {
+            ...state,
+            loading: 'failed',
+            token: undefined,
+            errorMessage: action.payload.errorMessage,
+          };
+        }
+        return state;
       });
   },
 });
-export const {logOut, addUserName} = authSlice.actions;
+export const {logOut, addUserName, setStateAuthRemember} = authSlice.actions;
 
 const persistConfig = {
   key: 'root',

@@ -1,17 +1,24 @@
 import React from 'react';
-import {Alert, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, View} from '../../components/Themed';
-export default function SearchScreen() {
+import {tintColorLight} from '../../constants/Colors';
+import {RootTabScreenProps} from '../../navigation/types';
+export default function SearchScreen({
+  navigation,
+}: RootTabScreenProps<'TabTwo'>) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Giá nước',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_gianuoc',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/maintenance.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -23,12 +30,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Chất lượng nước',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_chatluongnuoc',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/water-drop.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -40,12 +50,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Danh sách điểm thu',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_diemthu',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/contact-book.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -57,12 +70,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'Lịch tạm ngưng cấp nước',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_lich',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/search/save-water.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -74,12 +90,15 @@ export default function SearchScreen() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert('thông báo', 'tính năng đang phát triển');
+          navigation.navigate('MyWebView', {
+            title: 'tiến độ hồ sơ',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_tiendohoso',
+          });
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
             <Image
-              source={require('../../assets/images/installWater/deal.png')}
+              source={require('../../assets/images/installWater/file.png')}
               resizeMode="cover"
               style={styles.itemImage}
             />
@@ -98,13 +117,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   viewItemImage: {
-    width: 70,
+    width: 75,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 70,
-    backgroundColor: '#3e3e3e',
-    borderRadius: 20,
+    height: 75,
+    backgroundColor: tintColorLight,
+    borderRadius: 75,
     marginRight: 10,
+    marginLeft: 10,
   },
 
   itemImage: {
@@ -114,19 +134,23 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    marginHorizontal: 10,
-    marginTop: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 5,
   },
   viewItemText: {
     flex: 6,
     justifyContent: 'center',
-    height: 40,
-    backgroundColor: '#6e6e6e',
     borderRadius: 10,
   },
   itemText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: '#2d86ff',
   },

@@ -72,6 +72,42 @@ export default class ApiRequest {
     console.log(`${tag} data key.length :`, res.data);
     return res.data as ExcuteResult;
   };
+  static TollAreaDetail = async (
+    token: string,
+    id: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'TollAreaDetail';
+    const url = `/TollArea/detail?id=${id}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
+    return res.data as ExcuteResult;
+  };
+  static UnitTypeDetail = async (
+    token: string,
+    id: string,
+  ): Promise<ExcuteResult> => {
+    const tag = 'TollAreaDetail';
+    const url = `/UnitType/detail?id=${id}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `bearer ${token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, res.data);
+    return res.data as ExcuteResult;
+  };
 
   static WaterIndexAllByWateruser = async (
     token: string,
@@ -200,6 +236,30 @@ export default class ApiRequest {
       password: input.password,
     });
     console.log(res.data);
+    return res.data as ExcuteResult;
+  };
+  static ChangeWaterFactory = async (input: {
+    userName: string;
+    waterFactoryId: string;
+    token: string;
+  }): Promise<ExcuteResult> => {
+    console.log('ChangeWaterFactory ');
+    const url = '/AppUser/change-water-factory?v=1.0';
+    const tag = 'ChangeWaterFactory';
+    const config = {
+      headers: {
+        Authorization: `bearer ${input.token}`,
+        accept: 'text/plain',
+      },
+    };
+
+    const bodyParameters = {
+      userName: input.userName,
+      waterFactoryId: input.waterFactoryId,
+    };
+    const res = await axios.post(url, bodyParameters, config);
+    console.log(`${tag} data key.length :`, Object.keys(res.data).length);
+
     return res.data as ExcuteResult;
   };
 

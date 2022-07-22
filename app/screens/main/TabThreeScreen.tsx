@@ -1,23 +1,23 @@
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
-import {useAppDispatch} from '../../redux/store/hooks';
-import {logOut} from '../../redux/features/auth/authSlices';
-import {Text, View} from '../../components/Themed';
+// import {useAppDispatch} from '../../redux/store/hooks';
+// import {logOut} from '../../redux/features/auth/authSlices';
+import {View} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
 import {RootTabScreenProps} from '../../navigation/types';
 
 export default function TabThreeScreen({}: RootTabScreenProps<'TabThree'>) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
-      <View style={styles.buttonView}>
+      {/* <View style={styles.buttonView}>
         <TouchableOpacity
           onPress={() => {
             dispatch(logOut());
           }}>
           <Text style={styles.buttonText}>đăng xuất</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 }
