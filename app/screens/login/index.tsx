@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   Image,
@@ -43,15 +43,15 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
     Alert.alert('lỗi', errorMessage);
     dispatch(logOut());
   }
-  const handlePressOpenUrl = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
-    const supportedURL = 'http://dichvunuoc.vn/show/dvn_mobile_policy';
+  // const handlePressOpenUrl = useCallback(async () => {
+  //   // Checking if the link is supported for links with custom URL scheme.
+  //   const supportedURL = 'http://dichvunuoc.vn/show/dvn_mobile_policy';
 
-    navigation.navigate('MyWebView', {
-      title: 'Chính sách quy định',
-      url: supportedURL,
-    });
-  }, [navigation]);
+  //   navigation.navigate('MyWebView', {
+  //     title: 'Chính sách quy định',
+  //     url: supportedURL,
+  //   });
+  // }, [navigation]);
   // const onShare = async () => {
   //   try {
   //     const result = await Share.share({
@@ -139,11 +139,11 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 <Text style={styles.textInfoCheckBox}>Nhớ thông tin</Text>
               </View>
               <View style={styles.empty} />
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={styles.viewTextInfo}
                 onPress={handlePressOpenUrl}>
                 <Text style={styles.textInfo}>Chính sách và quy định</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={styles.btnLoginViewBorder}>
               <TouchableOpacity
@@ -180,7 +180,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 onPress={() => {
                   navigation.navigate('Register');
                 }}>
-                <Text style={styles.textInfo}>Đăng ký</Text>
+                <Text style={styles.textInfo}>Chưa có tài khoản</Text>
               </TouchableOpacity>
               <View style={styles.empty} />
               <TouchableOpacity
@@ -197,7 +197,7 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                 onPress={() => {
                   navigation.navigate('supportRegister');
                 }}>
-                <Text style={styles.textInfo}>Hướng dẫn đăng ký</Text>
+                <Text style={styles.textInfo}>Hướng dẫn đăng nhập</Text>
               </TouchableOpacity>
               <View style={styles.empty} />
             </View>
@@ -211,24 +211,39 @@ export default function Login({navigation}: RootStackScreenProps<'Login'>) {
                   }}
                 />
                 <View style={styles.viewButtonItemText}>
-                  <Text>Đăng ký</Text>
-                  <Text>Lắp nước</Text>
+                  <Text>Gửi yêu cầu</Text>
+                  <Text>lắp nước</Text>
                 </View>
               </View>
               <View style={styles.viewButtonItem}>
                 <Button
                   iconName="handyman"
                   BackgroundColor={tintColorLight}
+                  image={require('../../assets/images/search/process.png')}
+                  onPress={() => {
+                    navigation.navigate('ViewProcessScreen');
+                  }}
+                />
+                <View style={styles.viewButtonItemText}>
+                  <Text>Xem thủ tục</Text>
+                  <Text>Cấp nước</Text>
+                </View>
+              </View>
+              <View style={styles.viewButtonItem}>
+                <Button
+                  iconName="handyman"
+                  BackgroundColor={tintColorLight}
+                  image={require('../../assets/images/search/job-search.png')}
                   onPress={() => {
                     navigation.navigate('MyWebView', {
-                      title: 'Báo cáo sự cố',
-                      url: 'http://dichvunuoc.vn/show/dvn_mobile_baocaosuco',
+                      title: 'Tra cứu Tiến độ hồ sơ',
+                      url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_tiendo',
                     });
                   }}
                 />
                 <View style={styles.viewButtonItemText}>
-                  <Text>Báo sự cố</Text>
-                  <Text>nước</Text>
+                  <Text>Tra cứu tiến</Text>
+                  <Text>độ hồ sơ</Text>
                 </View>
               </View>
               <View style={styles.viewButtonItem}>

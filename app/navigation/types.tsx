@@ -28,6 +28,11 @@ export type RootStackParamList = {
   supportRegister: undefined;
   forgotpassword: undefined;
   InstallWaterScreen: undefined;
+
+  InstallWaterFamilyScreen: undefined;
+
+  InstallWaterCompanyScreen: undefined;
+
   report: undefined;
   WaterBill: {waterUserId: string; name: string};
   SendRequire: undefined;
@@ -38,6 +43,7 @@ export type RootStackParamList = {
     month: string;
   };
   MyWebView: {title: string; url: string};
+  ViewProcessScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

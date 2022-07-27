@@ -26,6 +26,9 @@ const linking: LinkingOptions<RootStackParamList> = {
       SendRequire: 'SendRequire',
       WaterInvoice: 'WaterInvoice',
       MyWebView: 'MyWebView',
+      ViewProcessScreen: 'ViewProcessScreen',
+      InstallWaterFamilyScreen: 'InstallWaterFamilyScreen',
+      InstallWaterCompanyScreen: 'InstallWaterCompanyScreen',
       Main: {
         screens: {
           TabOne: {

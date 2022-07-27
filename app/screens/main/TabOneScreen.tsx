@@ -9,6 +9,8 @@ import {ChangeWaterFactory, logOut} from '../../redux/features/auth/authSlices';
 import Layout from '../../constants/Layout';
 import {RootTabScreenProps} from '../../navigation/types';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
+import {WaterUserType} from '../../utils/api/apiTypes';
+
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<'TabOne'>) {
@@ -16,7 +18,7 @@ export default function TabOneScreen({
   const {token, userName} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
 
-  const [listWaterUser, setlistWaterUser] = useState<Array<any>>([]);
+  const [listWaterUser, setlistWaterUser] = useState<Array<WaterUserType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     if (token && userName) {
@@ -73,13 +75,21 @@ export default function TabOneScreen({
           Chọn hộ dùng nước
         </Text>
       </View>
+      {listWaterUser === undefined ||
+        (listWaterUser.length === 0 && <Text>Chưa có hợp đồng nước</Text>)}
       <FlatList
         data={listWaterUser}
         renderItem={({item}) => (
           <ItemHoDungNuoc
             dataItem={item}
             onPress={() => {
-              if (token && userName) {
+              if (
+                token &&
+                userName &&
+                item.waterFactoryId &&
+                item.address &&
+                item.name
+              ) {
                 dispatch(
                   ChangeWaterFactory({
                     token: token,
@@ -87,12 +97,13 @@ export default function TabOneScreen({
                     waterFactoryId: item.waterFactoryId,
                   }),
                 );
+
+                navigation.navigate('AccountViewDetail', {
+                  address: item.address,
+                  name: item.name,
+                  waterUserId: item.id,
+                });
               }
-              navigation.navigate('AccountViewDetail', {
-                address: item.address,
-                name: item.name,
-                waterUserId: item.id,
-              });
             }}
           />
         )}

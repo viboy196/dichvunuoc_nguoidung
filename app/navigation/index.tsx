@@ -21,11 +21,15 @@ import {useAppSelector} from '../redux/store/hooks';
 import SupportRegisterScreen from '../screens/register/supportRegister';
 import ForgotPasswordScreen from '../screens/forgotpassword';
 import InstallWaterScreen from '../screens/installWater';
+import InstallWaterFamilyScreen from '../screens/installWater/family';
+import InstallWaterCompanyScreen from '../screens/installWater/company';
+
 import ReportScreen from '../screens/report';
 import WaterBillScreen from '../screens/account/waterbill';
 import SendRequireScreen from '../screens/account/send_require';
 import WaterInvoiceScreen from '../screens/account/waterInvoice';
 import WebViewScreen from '../screens/WebView';
+import ViewProcessScreen from '../screens/ViewProcess';
 
 export default function Navigation({
   colorScheme,
@@ -90,7 +94,7 @@ function RootNavigator() {
       <Stack.Screen
         name="InstallWaterScreen"
         component={InstallWaterScreen}
-        options={{title: 'Đăng ký Lắp nước'}}
+        options={{title: 'Gửi yêu cầu lắp nước'}}
       />
       <Stack.Screen
         name="report"
@@ -116,6 +120,11 @@ function RootNavigator() {
         component={SendRequireScreen}
         options={{title: 'Tiếp nhận yêu cầu'}}
       />
+      <Stack.Screen
+        name="ViewProcessScreen"
+        component={ViewProcessScreen}
+        options={{title: 'Thủ tục cấp nước'}}
+      />
 
       <Stack.Screen
         name="MyWebView"
@@ -128,13 +137,23 @@ function RootNavigator() {
       <Stack.Screen
         name="supportRegister"
         component={SupportRegisterScreen}
-        options={{headerShown: false}}
+        options={{title: 'Hướng dẫn đăng nhập'}}
       />
 
       <Stack.Screen
         name="AccountViewDetail"
         component={AccountViewDetailScreen}
         options={{title: 'Thông tin khách hàng'}}
+      />
+      <Stack.Screen
+        name="InstallWaterFamilyScreen"
+        component={InstallWaterFamilyScreen}
+        options={{title: 'Đăng ký lắp nước hộ gia đình'}}
+      />
+      <Stack.Screen
+        name="InstallWaterCompanyScreen"
+        component={InstallWaterCompanyScreen}
+        options={{title: 'Đăng ký lắp nước cơ quan ,doanh nghiệp'}}
       />
     </Stack.Navigator>
   );

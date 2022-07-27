@@ -2,98 +2,82 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, View} from '../../components/Themed';
 import {tintColorLight} from '../../constants/Colors';
-import {RootTabScreenProps} from '../../navigation/types';
-export default function SearchScreen({
+import {RootStackScreenProps} from '../../navigation/types';
+export default function ViewProcessScreen({
   navigation,
-}: RootTabScreenProps<'TabTwo'>) {
+}: RootStackScreenProps<'ViewProcessScreen'>) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Giá nước',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_gianuoc',
-          });
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/search/maintenance.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> giá nước </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Chất lượng nước',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_chatluongnuoc',
-          });
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/search/water-drop.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Chất lượng nước </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Danh sách điểm thu',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_diemthu',
-          });
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/search/contact-book.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Danh sách điểm thu </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Lịch tạm ngưng cấp nước',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_lich',
-          });
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/search/save-water.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Lịch tạm ngưng cấp nước </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-
       {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate('MyWebView', {
-            title: 'tiến độ hồ sơ',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_timkiem_tiendohoso',
+            title: 'Thỏa thuận đấu nối cấp nước',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_thoathuan',
+          });
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/hand-shake.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Thỏa thuận đấu nối cấp nước </Text>
+          </View>
+        </View>
+      </TouchableOpacity> */}
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('MyWebView', {
+            title: ' Thủ tục cấp nước gia đình ',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_thutuc_giadinh',
+          });
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/home.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Thủ tục đối nối cấp nước </Text>
+            <Text style={styles.itemTextinfo}> Khách hàng hộ gia đình </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('MyWebView', {
+            title: ' Thủ tục cấp nước cơ quan ',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_thutuc_coquan',
+          });
+        }}>
+        <View style={styles.items}>
+          <View style={styles.viewItemImage}>
+            <Image
+              source={require('../../assets/images/installWater/building.png')}
+              resizeMode="cover"
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.viewItemText}>
+            <Text style={styles.itemText}> Thủ tục đối nối cấp nước </Text>
+            <Text style={styles.itemTextinfo}>
+              {' '}
+              Khách hàng cơ quan , doanh nghiệp{' '}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      {/* <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('MyWebView', {
+            title: 'Tiến độ hồ sơ',
+            url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_tiendo',
           });
         }}>
         <View style={styles.items}>
@@ -105,7 +89,7 @@ export default function SearchScreen({
             />
           </View>
           <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> tiến độ hồ sơ </Text>
+            <Text style={styles.itemText}> Tiến độ hồ sơ </Text>
           </View>
         </View>
       </TouchableOpacity> */}
@@ -127,7 +111,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
   },
-
   itemImage: {
     width: 35,
     height: 35,
@@ -154,5 +137,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: '#2d86ff',
+  },
+  itemTextinfo: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#929292',
   },
 });

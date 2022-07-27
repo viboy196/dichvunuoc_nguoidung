@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {ExcuteResult, InputRegister} from '../apiTypes';
+import {ExcuteResult, InputRegister, UseWaterRegister} from '../apiTypes';
 
 const host = 'http://14.225.3.190:8911/api';
 axios.defaults.baseURL = host;
@@ -301,6 +301,92 @@ export default class ApiRequest {
     const config: AxiosRequestConfig = {
       headers: {
         Authorization: `bearer ${data.token}`,
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, Object.keys(res.data).length);
+    return res.data as ExcuteResult;
+  };
+
+  static GetProvinceAll = async (): Promise<ExcuteResult> => {
+    const tag = 'GetProvinceAll';
+    const url = '/Province/all?v=1.0';
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, Object.keys(res.data).length);
+    return res.data as ExcuteResult;
+  };
+  static GetDistrictByProvinceId = async ({
+    provinceId,
+  }: {
+    provinceId: string;
+  }): Promise<ExcuteResult> => {
+    const tag = 'GetDistrictByProvinceId';
+    const url = `/District/get-by-provinceId?provinceId=${provinceId}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, Object.keys(res.data).length);
+    return res.data as ExcuteResult;
+  };
+  static GetWardByDistrictId = async ({
+    districtId,
+  }: {
+    districtId: string;
+  }): Promise<ExcuteResult> => {
+    const tag = 'GetDistrictByProvinceId';
+    const url = `/Ward/get-by-districtId?districtId=${districtId}&v=1.0`;
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        accept: 'text/plain',
+      },
+    };
+    const res = await axios.get(url, config);
+    console.log(`${tag} data key.length :`, Object.keys(res.data).length);
+    return res.data as ExcuteResult;
+  };
+  static PostUseWaterRegisterAdd = async (
+    input: UseWaterRegister,
+  ): Promise<ExcuteResult> => {
+    console.log('PostUseWaterRegisterAdd ');
+    console.log(input);
+
+    const url = '/UseWaterRegister/add?v=1.0';
+    const config = {
+      headers: {
+        accept: 'text/plain',
+      },
+    };
+
+    const bodyParameters = {
+      ...input,
+    };
+    const res = await axios.post(url, bodyParameters, config);
+    console.log(' data key.length :', Object.keys(res.data).length);
+
+    return res.data as ExcuteResult;
+  };
+  static GetWaterFactoryAll = async (): Promise<ExcuteResult> => {
+    const tag = 'GetWaterFactoryAll';
+    const url = '/WaterFactory/all?v=1.0';
+    console.log(`${tag} url:`, url);
+
+    const config: AxiosRequestConfig = {
+      headers: {
         accept: 'text/plain',
       },
     };

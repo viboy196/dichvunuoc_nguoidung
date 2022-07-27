@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {ImageSourcePropType, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, View} from '../../components/Themed';
 import Colors, {tintColorLight} from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
@@ -72,12 +72,16 @@ export default function MainScreen() {
         name="TabThree"
         component={TabTwoScreen}
         options={{
-          title: 'Dịch vụ',
+          title: 'Tiện ích',
           headerShown: true,
-          header: () => <HeaderShow name="Dịch vụ" />,
+          header: () => <HeaderShow name="Tiện ích" />,
 
           tabBarIcon: ({color}) => (
-            <TabBarIcon name="servicestack" color={color} />
+            <TabBarIcon
+              name="elementor"
+              image={require('../../assets/images/search/repairing-service.png')}
+              color={color}
+            />
           ),
         }}
         // listeners={{
@@ -115,10 +119,12 @@ export function TabBarIcon(props: {
   name: string;
   color: string;
   numberCount?: number;
+  image?: ImageSourcePropType;
 }) {
   return (
     <View style={styles.tabBarIconView}>
       <Icon size={30} style={styles.icon} {...props} />
+
       {props.numberCount !== undefined && props.numberCount > 0 && (
         <View style={styles.notificationNumView}>
           <Text style={styles.notificationNumText}>{props.numberCount}</Text>
@@ -151,6 +157,10 @@ export function HeaderShow(props: {name: string; logout?: () => void}) {
 
 const styles = StyleSheet.create({
   tabBarIconView: {
+    width: 30,
+    height: 30,
+  },
+  itemImage: {
     width: 30,
     height: 30,
   },

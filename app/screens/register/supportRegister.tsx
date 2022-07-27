@@ -19,7 +19,7 @@ export default function SupportRegisterScreen() {
             style={styles.logoImage}
           />
           <Text style={styles.logoText}> DỊCH VỤ NƯỚC </Text>
-          <Text style={styles.logoText}> Hướng dẫn đăng ký </Text>
+          <Text style={styles.logoText}> Hướng dẫn đăng nhập </Text>
         </View>
         <View style={styles.body}>
           <ScrollView>

@@ -1,4 +1,11 @@
-import {TouchableOpacity, StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  Image,
+  ImageSourcePropType,
+} from 'react-native';
 import React from 'react';
 import {View} from '../Themed';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -6,6 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 type Props = {
   onPress: () => void;
   iconName: string;
+  image?: ImageSourcePropType;
   BackgroundColor: string;
   style?: StyleProp<ViewStyle>;
 };
@@ -19,7 +27,15 @@ export default function Button(props: Props) {
           props.style,
           styles.button,
         ]}>
-        <Icon name={props.iconName} color="white" size={20} />
+        {props.image ? (
+          <Image
+            source={props.image}
+            resizeMode="cover"
+            style={styles.itemImage}
+          />
+        ) : (
+          <Icon name={props.iconName} color="white" size={20} />
+        )}
       </TouchableOpacity>
     </View>
   );
@@ -33,5 +49,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
+  },
+
+  itemImage: {
+    width: 30,
+    height: 30,
+    tintColor: '#fff',
   },
 });

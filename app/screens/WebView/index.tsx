@@ -7,6 +7,7 @@ import {RootStackScreenProps} from '../../navigation/types';
 export default function MyWebView({route}: RootStackScreenProps<'MyWebView'>) {
   const [url, setUrl] = useState<string>('http://dichvunuoc.vn/show/hh_home');
   const [loading, setLoading] = useState<boolean>(true);
+  const [onStartLoad, setOnStartLoad] = useState<boolean>(false);
   useEffect(() => {
     if (route.params.url) {
       setUrl(route.params.url);
@@ -28,10 +29,17 @@ export default function MyWebView({route}: RootStackScreenProps<'MyWebView'>) {
         }}
         javaScriptEnabled={true}
         domStorageEnabled={true}
+        onLoadStart={() => {
+          console.log('bắt đầu load');
+
+          setLoading(true);
+          setOnStartLoad(true);
+        }}
         onLoadEnd={() => {
           console.log('load xong');
-
-          setLoading(false);
+          if (onStartLoad) {
+            setLoading(false);
+          }
         }}
       />
     </View>

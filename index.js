@@ -19,6 +19,8 @@ import App from './app/App';
 // import waterbill from './app/screens/account/waterbill';
 // import forgotpassword from './app/screens/forgotpassword';
 // import WebViewScreen from './app/screens/WebView';
+// import FamilyScreen from './app/screens/installWater/family';
+// import CompanyScreen from './app/screens/installWater/company';
 
 import {name as appName} from './app.json';
 

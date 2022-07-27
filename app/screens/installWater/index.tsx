@@ -10,30 +10,7 @@ export default function InstallWaterScreen({
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Thỏa thuận đấu nối cấp nước',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_thoathuan',
-          });
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/installWater/hand-shake.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Thỏa thuận đấu nối cấp nước </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Cấp nước hộ gia đình ',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_giadinh',
-          });
+          navigation.navigate('InstallWaterFamilyScreen');
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
@@ -44,16 +21,13 @@ export default function InstallWaterScreen({
             />
           </View>
           <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Cấp nước hộ gia đình </Text>
+            <Text style={styles.itemText}> Khách hàng hộ gia đình </Text>
           </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Cấp nước cơ quan tổ chức  ',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_coquan',
-          });
+          navigation.navigate('InstallWaterCompanyScreen');
         }}>
         <View style={styles.items}>
           <View style={styles.viewItemImage}>
@@ -64,27 +38,7 @@ export default function InstallWaterScreen({
             />
           </View>
           <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Cấp nước cơ quan tổ chức </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MyWebView', {
-            title: 'Tiến độ hồ sơ',
-            url: 'http://dichvunuoc.vn/show/dvn_mobile_dangky_tiendo',
-          });
-        }}>
-        <View style={styles.items}>
-          <View style={styles.viewItemImage}>
-            <Image
-              source={require('../../assets/images/installWater/file.png')}
-              resizeMode="cover"
-              style={styles.itemImage}
-            />
-          </View>
-          <View style={styles.viewItemText}>
-            <Text style={styles.itemText}> Tiến độ hồ sơ </Text>
+            <Text style={styles.itemText}> Khách hàng cơ quan tổ chức </Text>
           </View>
         </View>
       </TouchableOpacity>
